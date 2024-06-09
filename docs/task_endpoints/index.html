@@ -523,6 +523,69 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    lab3
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            lab3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -559,25 +622,28 @@
 <h1 id="_1">Эндпоинты для задач<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">HTTPException</span><span class="p">,</span> <span class="n">status</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">import</span> <span class="nn">models</span><span class="o">,</span> <span class="nn">crud</span>
+<span class="kn">from</span> <span class="nn">to_do_app</span> <span class="kn">import</span> <span class="n">crud</span>
+<span class="kn">import</span> <span class="nn">models</span>
 <span class="kn">from</span> <span class="nn">connection</span> <span class="kn">import</span> <span class="n">get_session</span>
 <span class="kn">from</span> <span class="nn">schemas</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
 
+
 <span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/tasks/&quot;</span><span class="p">,</span>
-        <span class="n">response_model</span><span class="o">=</span><span class="n">Task</span><span class="p">,</span>
-        <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">,</span>
-        <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Tasks&quot;</span><span class="p">],</span>  <span class="c1"># Теги для организации в документации</span>
-        <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Create a new task&quot;</span><span class="p">,</span>  <span class="c1"># Краткое описание метода</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Create a new task with the provided data.&quot;</span><span class="p">,</span>
-        <span class="n">responses</span><span class="o">=</span><span class="p">{</span>  <span class="c1"># Примеры ответов</span>
-            <span class="mi">201</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Task created successfully&quot;</span><span class="p">},</span>
-            <span class="mi">400</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid data provided&quot;</span><span class="p">},</span>
-            <span class="mi">500</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Internal server error&quot;</span><span class="p">},</span>
-    <span class="p">})</span>
+             <span class="n">response_model</span><span class="o">=</span><span class="n">Task</span><span class="p">,</span>
+             <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">,</span>
+             <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Tasks&quot;</span><span class="p">],</span>  <span class="c1"># Теги для организации в документации</span>
+             <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Create a new task&quot;</span><span class="p">,</span>  <span class="c1"># Краткое описание метода</span>
+             <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Create a new task with the provided data.&quot;</span><span class="p">,</span>
+             <span class="n">responses</span><span class="o">=</span><span class="p">{</span>  <span class="c1"># Примеры ответов</span>
+                 <span class="mi">201</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Task created successfully&quot;</span><span class="p">},</span>
+                 <span class="mi">400</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid data provided&quot;</span><span class="p">},</span>
+                 <span class="mi">500</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Internal server error&quot;</span><span class="p">},</span>
+             <span class="p">})</span>
 <span class="k">def</span> <span class="nf">create_task</span><span class="p">(</span><span class="n">task_data</span><span class="p">:</span> <span class="n">TaskCreate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
     <span class="k">return</span> <span class="n">crud</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="o">**</span><span class="n">task_data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+
 
 <span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/tasks/</span><span class="si">{task_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">Task</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">read_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
@@ -586,10 +652,12 @@
         <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Task not found&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">db_task</span>
 
+
 <span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/tasks/&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">TaskList</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">read_all_tasks</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
     <span class="n">tasks</span> <span class="o">=</span> <span class="n">crud</span><span class="o">.</span><span class="n">get_all_tasks</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;tasks&quot;</span><span class="p">:</span> <span class="n">tasks</span><span class="p">}</span>
+
 
 <span class="nd">@router</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s2">&quot;/tasks/</span><span class="si">{task_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">Task</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">update_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">task_data</span><span class="p">:</span> <span class="n">TaskUpdate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
@@ -598,12 +666,14 @@
         <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Task not found&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">crud</span><span class="o">.</span><span class="n">update_task</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">,</span> <span class="o">**</span><span class="n">task_data</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
+
 <span class="nd">@router</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&quot;/tasks/</span><span class="si">{task_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">Task</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">delete_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
     <span class="n">db_task</span> <span class="o">=</span> <span class="n">crud</span><span class="o">.</span><span class="n">get_task</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">db_task</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Task not found&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">crud</span><span class="o">.</span><span class="n">delete_task</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">)</span>
+
 
 <span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/tasks/user/</span><span class="si">{user_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">TaskList</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">read_user_tasks</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
@@ -612,12 +682,14 @@
         <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;User has no tasks&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;tasks&quot;</span><span class="p">:</span> <span class="n">tasks</span><span class="p">}</span>
 
+
 <span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/tasks/</span><span class="si">{task_id}</span><span class="s2">/user&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">UserRead</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">read_user_by_task_id</span><span class="p">(</span><span class="n">task_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">crud</span><span class="o">.</span><span class="n">get_user_by_task_id</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">task_id</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Task not found&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">user</span>
+
 
 <span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/tasks-with-time-logs/</span><span class="si">{task_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">TaskWithTimeLogsList</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">read_tasks_with_time_logs</span><span class="p">(</span><span class="n">task_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
@@ -626,9 +698,11 @@
         <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Task not found&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;tasks&quot;</span><span class="p">:</span> <span class="n">tasks</span><span class="p">}</span>
 
+
 <span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/tasks/</span><span class="si">{task_id}</span><span class="s2">/add-time-log&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">add_time_log_to_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">time_spent_minutes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">date_logged</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
     <span class="k">return</span> <span class="n">crud</span><span class="o">.</span><span class="n">add_time_log</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">task_id</span><span class="p">,</span> <span class="n">time_spent_minutes</span><span class="p">,</span> <span class="n">date_logged</span><span class="p">)</span>
+
 
 <span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/tasks/</span><span class="si">{task_id}</span><span class="s2">/time-logs&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_time_logs_for_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_session</span><span class="p">)):</span>
